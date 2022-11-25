@@ -62,6 +62,16 @@ def move_helper(board, horizontal, natural):
 
     return new_board
 
+def get_empty_spots(board):
+    n = len(board)
+    res = []
+    for r in range(n):
+        for c in range(n):
+            if not board[r][c]:
+                res.append((r, c))
+
+    return res
+
 def string_of_board(board, target):
     """
     Pretty prints board. Takes in a target,
