@@ -63,6 +63,10 @@ def move_helper(board, horizontal, natural):
     return new_board
 
 def string_of_board(board, target):
+    """
+    Pretty prints board. Takes in a target,
+    which is the largest value that the board can display (used for formatting)
+    """
     n = len(board)
     target_n = len(str(target))
     partition = "+" + ("-" + "-" * target_n + "-+") * n + "\n"
