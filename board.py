@@ -62,6 +62,21 @@ def move_helper(board, horizontal, natural):
 
     return new_board
 
+def string_of_board(board, target):
+    n = len(board)
+    target_n = len(str(target))
+    partition = "+" + ("-" + "-" * target_n + "-+") * n + "\n"
+    filler = "|" + (" " + " " * target_n + " |") * n + "\n"
+
+    res = partition
+    for r in range(n):
+        res += filler + "|"
+        for c in range(n):
+            res += " " + (str(board[r][c]) if board[r][c] else "").center(target_n) + " |"
+        res += "\n" + filler + partition
+
+    return res
+
 def main():
     vertical_test = [[4, 0, 2, 0],
                      [2, 0, 2, 0],
@@ -73,9 +88,9 @@ def main():
                        [0, 0, 0, 0]]
 
     for m in range(4):
-        print(m, move(vertical_test, m))
+        print(string_of_board(move(vertical_test, m), 2048))
     for m in range(4):
-        print(m, move(horizontal_test, m))
+        print(string_of_board(move(horizontal_test, m), 2048))
 
 if __name__ == "__main__":
     main()
