@@ -4,6 +4,18 @@ from collections import deque
 A 2d array is used to represent the 2048 board
 """
 
+def get_next_moves(board):
+    """
+    Returns a list of boards, each of which represents a next move from the input board
+    """
+    res = [[] for _ in range(4)]
+    for m in range(4):
+        new_board = move(board, m)
+        if new_board != board:
+            res[m] = new_board
+
+    return res
+
 def move(board, m):
     """
     There are four possible moves: up, down, left, right
@@ -63,6 +75,9 @@ def move_helper(board, horizontal, natural):
     return new_board
 
 def get_empty_spots(board):
+    """
+    Returns the coordinates of all the empty cells on the board
+    """
     n = len(board)
     res = []
     for r in range(n):
