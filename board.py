@@ -4,6 +4,18 @@ from collections import deque
 A 2d array is used to represent the 2048 board
 """
 
+def get_next_moves(board):
+    """
+    Returns a list of boards, each of which represents a next move from the input board
+    """
+    res = [[] for _ in range(4)]
+    for m in range(4):
+        new_board = move(board, m)
+        if new_board != board:
+            res[m] = new_board
+
+    return res
+
 def move(board, m):
     """
     There are four possible moves: up, down, left, right
@@ -62,13 +74,25 @@ def move_helper(board, horizontal, natural):
 
     return new_board
 
-def string_of_board(board, target):
+def get_empty_spots(board):
+    """
+    Returns the coordinates of all the empty cells on the board
+    """
+    n = len(board)
+    res = []
+    for r in range(n):
+        for c in range(n):
+            if not board[r][c]:
+                res.append((r, c))
+
+    return res
+
+def string_of_board(board, target_n):
     """
     Pretty prints board. Takes in a target,
     which is the largest value that the board can display (used for formatting)
     """
     n = len(board)
-    target_n = len(str(target))
     partition = "+" + ("-" + "-" * target_n + "-+") * n + "\n"
     filler = "|" + (" " + " " * target_n + " |") * n + "\n"
 
@@ -92,9 +116,9 @@ def main():
                        [0, 0, 0, 0]]
 
     for m in range(4):
-        print(string_of_board(move(vertical_test, m), 2048))
+        print(string_of_board(move(vertical_test, m), 6))
     for m in range(4):
-        print(string_of_board(move(horizontal_test, m), 2048))
+        print(string_of_board(move(horizontal_test, m), 6))
 
 if __name__ == "__main__":
     main()
