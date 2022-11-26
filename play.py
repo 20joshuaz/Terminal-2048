@@ -81,10 +81,9 @@ def main():
             "s": 1,
             "a": 2,
             "d": 3,
-            "exit": -1,
         }
         m = input()
-        while m not in key_to_move or not next_moves[key_to_move[m]]:
+        while m != "exit" and (m not in key_to_move or not next_moves[key_to_move[m]]):
             reprint_screen(board_string)
             m = input()
         if m == "exit":
