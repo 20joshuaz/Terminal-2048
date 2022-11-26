@@ -81,11 +81,14 @@ def main():
             "s": 1,
             "a": 2,
             "d": 3,
+            "exit": -1,
         }
         m = input()
-        while len(m) != 1 or m not in key_to_move or not next_moves[key_to_move[m]]:
+        while m not in key_to_move or not next_moves[key_to_move[m]]:
             reprint_screen(board_string)
             m = input()
+        if m == "exit":
+            return
 
         board = get_adversary_move(next_moves[key_to_move[m]])
 
