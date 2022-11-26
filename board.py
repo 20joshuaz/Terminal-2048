@@ -87,13 +87,12 @@ def get_empty_spots(board):
 
     return res
 
-def string_of_board(board, target):
+def string_of_board(board, target_n):
     """
     Pretty prints board. Takes in a target,
     which is the largest value that the board can display (used for formatting)
     """
     n = len(board)
-    target_n = len(str(target))
     partition = "+" + ("-" + "-" * target_n + "-+") * n + "\n"
     filler = "|" + (" " + " " * target_n + " |") * n + "\n"
 
@@ -117,9 +116,9 @@ def main():
                        [0, 0, 0, 0]]
 
     for m in range(4):
-        print(string_of_board(move(vertical_test, m), 2048))
+        print(string_of_board(move(vertical_test, m), 6))
     for m in range(4):
-        print(string_of_board(move(horizontal_test, m), 2048))
+        print(string_of_board(move(horizontal_test, m), 6))
 
 if __name__ == "__main__":
     main()

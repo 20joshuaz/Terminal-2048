@@ -47,9 +47,6 @@ def main():
     if n <= 0:
         print("Dimensions must be positive")
         return
-    if target < 2 and target != -1:
-        print("Target must be at least 2, or -1 for non-stopping play")
-        return
 
     def is_power_of_two(num):
         if num == 2:
@@ -58,35 +55,38 @@ def main():
             return False
         return is_power_of_two(num // 2)
 
-    if not is_power_of_two(target):
-        print("Target must be a power of 2")
+    if target != -1 and (target < 2 or not is_power_of_two(target)):
+        print("Invalid target: Target must be a power of 2, or -1 for non-stopping play")
         return
 
+    target_n = max(len(str(target)), 7)  # formatting
     print()
     print("\n" * (4 * n + 3), end="")  # formatting
     board = get_adversary_move([[0] * n for _ in range(n)])
     while True:
-        board_string = string_of_board(board, target)
+        board_string = string_of_board(board, target_n)
         reprint_screen(board_string)
         if target > 0 and won(board, target):
             print("You won!")
             return
 
-        possible_moves = get_next_moves(board)
-        if not possible_moves:
+        next_moves = get_next_moves(board)
+        if not any(next_moves):
             print("You lost")
             return
 
         key_to_move = {
-            "W": 0,
-            "S": 1,
-            "A": 2,
-            "D": 3,
+            "w": 0,
+            "s": 1,
+            "a": 2,
+            "d": 3,
         }
         m = input()
-        while len(m) != 1 or m not in "WASD" or not possible_moves[key_to_move[m]]:
+        while len(m) != 1 or m not in key_to_move or not next_moves[key_to_move[m]]:
             reprint_screen(board_string)
             m = input()
+
+        board = get_adversary_move(next_moves[key_to_move[m]])
 
 if __name__ == "__main__":
     main()
