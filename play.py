@@ -39,11 +39,12 @@ def reprint_screen(board_string):
     print("\n" + "Move: ", end="")
 
 def main():
-    if len(argv) != 3:
-        print("Expected python3 manager.py <board dimensions> <max tile value>")
+    if len(argv) > 3:
+        print("Expected python3 manager.py <opt: max tile value> <opt: board dimensions>")
         return
 
-    n, target = int(argv[1]), int(argv[2])
+    target = int(argv[1]) if len(argv) >= 2 else 2048
+    n = int(argv[2]) if len(argv) >= 3 else 4
     if n <= 0:
         print("Dimensions must be positive")
         return
